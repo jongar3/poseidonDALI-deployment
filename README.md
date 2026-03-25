@@ -16,10 +16,10 @@ Este proyecto nace como una solución de infraestructura moderna para el ecosist
     * `caddy`: Proxy inverso para gestión de certificados SSL y acceso seguro.
 ---
 ## Prerrequisitos
-    *Docker-DockerDesktop Instalado
-    *Docker Compose
-    *Acceso al gateway
-    *Git """Obviamente"""
+    * Docker-DockerDesktop Instalado
+    * Docker Compose
+    * Acceso al gateway
+    * Git """Obviamente"""
 
 ## Configuración Inicial
 
@@ -39,9 +39,8 @@ Se debe editar el archivo `config.json` ubicado en /local. Se debe cambiar la ip
     "API_PORT": 443,
     "USE_HTTPS": true,
     "GATEWAY_IP": "192.168.1.224" 
-} ```
-
-
+}
+```
 ### 3. Preconfiguración Caddyfile
 Se debe configurar el Reverse-Proxy para ello hay que cambiar el `Caddyfile` situado en cloud / simplemente nos aseguramos que coincida con el dominio
 
@@ -52,13 +51,14 @@ Primero clonamos el repositorio:
 
 Depende de lo que queramos levantar, vamos a la carpeta cloud o local (normalmente iremos a local) y ejecutamos el comando:
 - ***`docker compose up -d --build`***
-Y ya estaria. Incluyo alguno comando utiles:
+Y ya estaria. Incluyo algunos comando utiles:
 
-Acción,Comando
-Detener todos los servicios,docker compose down
-Ver logs en tiempo real,docker compose logs -f
-Reiniciar un servicio específico,docker compose restart daemon
-Apagar el servicio,docker compose down
+| Acción | Comando |
+| :--- | :--- |
+| **Detener todos los servicios** | `docker compose down` |
+| **Ver logs en tiempo real** | `docker compose logs -f` |
+| **Reiniciar Servicios** | `docker compose restart [nombre_servicio]` |
+| **Apagar Servicio** | `docker compose down` |
 
 ## Licencia
 
