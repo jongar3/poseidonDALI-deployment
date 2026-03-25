@@ -1,0 +1,30 @@
+
+services:
+  dashboard:
+    image: jongar3/poseidon:latest
+    build:
+      context: ..           
+      dockerfile: local/Dockerfile
+
+    container_name: poseidon_gui
+    command: streamlit run local/app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/local/data
+      - ./config.json:/app/local/config.json:ro
+    restart: always
+
+  daemon:
+    image: jongar3/poseidon:latest
+    build:
+      context: ..             
+      dockerfile: local/Dockerfile
+    container_name: poseidon_daemon
+    command: python local/daemon.py
+    volumes:
+      - ./data:/app/local/data
+    environment:
+      - API_HOST=host.docker.internal
+      - API_PORT=8000
+    restart: always

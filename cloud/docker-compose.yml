@@ -1,0 +1,68 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: poseidon_db
+    restart: always
+    environment:
+      - POSTGRES_USER=writer
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=poseidon_db
+    ports:
+      - "5432:5432"  # Mapeo activo para debug (PostgreSQL)
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: poseidon_grafana
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_PLUGINS_PREINSTALL=grafana-clock-panel,volkovlabs-form-panel
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+      #Mapeo para que se puedan importar los .json de los dashboards directamente
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    ports:
+      - "3000:3000"  # Mapeo activo para debug (Acceso directo sin Caddy)
+
+  api:
+      image: jongar3/poseidon:latest
+      container_name: poseidon_api
+      depends_on:
+        - db
+      environment:
+      # Añadimos la carpeta cloud al path de búsqueda de Python
+        - PYTHONPATH=/app:/app/cloud
+        - DATABASE_URL=postgresql://writer:1234@db:5432/poseidon_db
+      
+      # SOBREESCRIBIMOS el comando (CMD en dockerfile) para que ejecute FastAPI
+      command: fastapi run /app/cloud/api.py --port 8000
+      ports:
+        - "8000:8000"
+      volumes:
+        - ./:/app/cloud # Mapeo para programar en caliente
+      restart: always
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+      # extra_hosts is no longer needed since the API is inside Docker!
+
+volumes:
+  caddy_data:
+  caddy_config:
