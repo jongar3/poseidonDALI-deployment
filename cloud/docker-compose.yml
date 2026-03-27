@@ -46,8 +46,7 @@ services:
       command: fastapi run /app/cloud/api.py --port 8000
       ports:
         - "8000:8000"
-      volumes:
-        - ./:/app/cloud # Mapeo para programar en caliente
+        
       restart: always
 
   caddy:
