@@ -1,2 +1,5 @@
 cloud/data/postgres/
 cloud/data/grafana/
+local/data/registers.csv
+local/data/registers.json
+local/data/*.db
