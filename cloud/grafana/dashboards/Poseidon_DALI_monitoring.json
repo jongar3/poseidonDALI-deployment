@@ -4,8 +4,8 @@
       {
         "builtIn": 1,
         "datasource": {
-          "type": "postgres",
-          "uid": "poseidon_prod_db"
+          "type": "grafana",
+          "uid": "-- Grafana --"
         },
         "enable": true,
         "hide": true,
@@ -23,8 +23,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "poseidon_prod_db"
+        "type": "grafana-postgresql-datasource",
+        "uid": "dfevxccx5tczkd"
       },
       "fieldConfig": {
         "defaults": {
@@ -99,8 +99,8 @@
         {
           "dataset": "poseidon_db",
           "datasource": {
-            "type": "postgres",
-            "uid": "poseidon_prod_db"
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfevxccx5tczkd"
           },
           "editorMode": "code",
           "format": "table",
@@ -210,8 +210,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "poseidon_prod_db"
+        "type": "grafana-postgresql-datasource",
+        "uid": "dfevxccx5tczkd"
       },
       "fieldConfig": {
         "defaults": {
@@ -443,8 +443,8 @@
     },
     {
       "datasource": {
-        "type": "postgres",
-        "uid": "poseidon_prod_db"
+        "type": "grafana-postgresql-datasource",
+        "uid": "dfevxccx5tczkd"
       },
       "fieldConfig": {
         "defaults": {
@@ -595,8 +595,8 @@
           ]
         },
         "datasource": {
-          "type": "postgres",
-          "uid": "poseidon_prod_db"
+          "type": "grafana-postgresql-datasource",
+          "uid": "dfevxccx5tczkd"
         },
         "includeAll": true,
         "label": "Select Device(s)",

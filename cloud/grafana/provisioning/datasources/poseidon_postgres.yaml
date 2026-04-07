@@ -1,0 +1,21 @@
+apiVersion: 1
+
+datasources:
+  - name: PoseidonDB
+    type: grafana-postgresql-datasource
+    uid: dfevxccx5tczkd       # UID fijo — debe coincidir con el dashboard JSON
+    access: proxy
+    url: db:5432              # nombre del servicio Docker, no localhost
+    user: writer
+    secureJsonData:
+      password: "1234"
+    jsonData:
+      database: poseidon_db   # En Grafana 9+ el database va aquí, no al nivel raíz
+      sslmode: disable
+      maxOpenConns: 10
+      maxIdleConns: 2
+      connMaxLifetime: 14400
+      postgresVersion: 1500
+      timescaledb: false
+    isDefault: true
+    editable: false
