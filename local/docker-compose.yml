@@ -13,6 +13,7 @@ services:
     volumes:
       - ./data:/app/local/data
       - ./config.json:/app/local/config.json:ro
+      - ./maps:/app/local/maps
     restart: always
 
   daemon:
